@@ -19,13 +19,16 @@ router.post(
   '/', 
   md.checkAccountPayload, 
   md.checkAccountNameUnique, 
-  (req, res, next) => {
-  // DO YOUR MAGIC
-  try {
-    res.json('post new account')
-  } catch (err) {
-    next(err)
-  }
+  async (req, res, next) => {
+    try {
+      const newAccount = await Account.create({ 
+        name: req.body.name.trim(),
+        budget: req.body.budget,
+      })
+      res.status(201).json(newAccount)
+    } catch (err) {
+      next(err)
+    }
 })
 
 router.put(
