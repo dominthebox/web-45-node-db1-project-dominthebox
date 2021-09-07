@@ -10,13 +10,13 @@ const getById = id => {
   return db('accounts').where('id', id).first()
 }
 
-const create = account => {
+const create = async account => {
   // insert into accounts (name, budget) values ('foo', 1000);
   const [id] = await db('accounts').insert(account)
   return getById(id)
 }
 
-const updateById = (id, account) => {
+const updateById = async (id, account) => {
   // update account set name='foo', budget=1000 where id= 1;
   await db('accounts').where('id', id).update(account)
   return getById(id)
